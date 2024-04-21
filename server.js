@@ -9,7 +9,6 @@ const app = express();
 // Start the server
 const PORT = process.env.PORT || 3001;
 
-
 // Middleware for express
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

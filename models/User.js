@@ -1,5 +1,7 @@
 //Bringing in mongoose for model and schema
 const { Schema, model } = require('mongoose');
+const thoughtSchema = require('./Thoughts')
+const reactionSchema = require('./Reactions')
 
 // User Schema
 const userSchema = new Schema(
@@ -11,22 +13,16 @@ const userSchema = new Schema(
         maxlength: 50
     },
     // User has a relationship with friends, thoughts and reactions. The User can have multiple friends, thoughts and reactions. Thoughts and reactions are referencing their own models, and the friends is referencing the User.
-    friends: [{
+    friends: [
+        {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }],
-    thought: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Thoughts',
-        required: true
-    }],
-    reaction: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Reactions',
-        required: true,
-    }],
-},
-{
+        }
+    ],
+    thought: [ thoughtSchema ],
+    reaction: [ reactionSchema ],
+    }, 
+    {
     toJSON: {
         virtuals: true,
         getters: true

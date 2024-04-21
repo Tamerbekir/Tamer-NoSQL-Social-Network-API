@@ -1,10 +1,15 @@
 //Bringing in mongoose for model and schema
-const { Schema, model } = require('mongoose');
+const { Schema, Types } = require('mongoose');
+const reactionSchema = require('./Reactions')
 
 // Thought Schema
 const thoughtSchema = new Schema(
     {
-    text: {
+    thoughtId: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId()
+    },
+    thoughtText: {
         type: String,
         required: true,
         maxlength: 150,
@@ -17,18 +22,14 @@ const thoughtSchema = new Schema(
         ref: 'User',
         required: true
     }],
-    reaction: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Reaction',
-        required: true
-    }],
-},
-{
+    reaction: [ reactionSchema ],
+    },  
+    {
     createdAt: {
         type: Date,
         default: Date.now,
     }
-},
+    },
     {
         toJSON: {
             getters: true
