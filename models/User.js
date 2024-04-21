@@ -1,7 +1,6 @@
 //Bringing in mongoose for model and schema
 const { Schema, model } = require('mongoose');
-const thoughtSchema = require('./Thoughts')
-const reactionSchema = require('./Reactions')
+
 
 // User Schema
 const userSchema = new Schema(
@@ -17,15 +16,19 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'User'
     }],
-    thought: [ thoughtSchema ],
-    reaction: [ reactionSchema ],
-    }, 
-    {
-    toJSON: {
-        virtuals: true,
-        getters: true
-    },
-})
+    thoughts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Thoughts'
+        }],
+    friends: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+        }],
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
 
 const User = model('user', userSchema);
 

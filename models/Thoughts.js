@@ -1,42 +1,43 @@
-//Bringing in mongoose for model and schema
-const { Schema, Types } = require('mongoose');
-const reactionSchema = require('./Reactions')
+const { Schema, model } = require('mongoose');
 
-// Thought Schema
-const thoughtSchema = new Schema(
-    {
-    thoughtId: {
-        type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId()
-    },
+const thoughtSchema = new Schema({
+    // The text for the thought
     thoughtText: {
         type: String,
         required: true,
-        maxlength: 150,
-        minlength: 5,
-        default: 'Looks like no one has anything thoughts yet!'
+        maxlength: 280
     },
-    // Thoughts has a relationship with user and reactions. User and reactions are referencing their own models.
-    user: [{
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+    username: {
+        type: String,
         required: true
-    }],
-    reaction: [ reactionSchema ],
-    },  
-    {
+    },
     createdAt: {
         type: Date,
-        default: Date.now,
-    }
+        default: Date.now
     },
-    {
-        toJSON: {
-            getters: true
-        }
-    }
-);
+    // Reactions in an array within the User model so they are associated.
+    // The reaction will hold the reactionBody, the users name, and the date it was created at when posted.
+    reactions: [{
+            reactionBody: {
+                type: String,
+                required: true
+            },
+            username: {
+                type: String,
+                required: true
+            },
+            createdAt: {
+                type: Date,
+                default: Date.now
+            }
+        }],
+        // Friends in an array within the User model
+    friends: [{
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }],
+});
 
-const Thought = model('thought', thoughtSchema);
+const Thoughts = model('thoughts', thoughtSchema);
 
-module.exports = Thought;
+module.exports = Thoughts;

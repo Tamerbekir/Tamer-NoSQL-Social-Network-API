@@ -1,14 +1,24 @@
-// Bring in express
+const router = require('express').Router();
 
-// GET route(s) for 'users'
-    // Display data for each user
+const { 
+    allUsers,
+    singleUser,
+    createUser,
+    deleteUser,
+    updateUser
+} = require('../../controllers/userController')
 
-// POST route(s) for 'users'
-    // CREATE user 
+//api/users
+router.route('/').get(allUsers).post(createUser)
 
-// PUT/UPDATE route(s) for 'users'
-    // UPDATE user
+//api/users/:userId
+router.route('/:userId').get(singleUser).delete(deleteUser).put(updateUser)
 
-// DELETE route(s) for 'users'
-    // DELETE user
+// From the friends controller addFriend, which is part of User model as a reference to add a friend to the user's friend list. 'friends' is found in the User model
+
+//api/users/:userId/friends/
+router.route(':userId/friends').post(addFriend)
+
+//api/users/:userId/friends/friendsId
+router.route(':userId/friends').delete(removeFriend)
 

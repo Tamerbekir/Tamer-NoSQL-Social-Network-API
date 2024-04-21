@@ -1,14 +1,19 @@
-// Bring in express
+const router = require('express').Router();
+const { 
+    allThoughts, 
+    singleThought,
+    createThoughts,
+    updateThoughts,
+    deleteThoughts
+} = require('../../controllers/thoughtController');
 
-// GET route(s) for 'thoughts'
-    // Display data for each thoughts
+//All routes being handles via /thoughts
+//api/thoughts
+router.route('/').get(allThoughts).post(createThoughts);
 
-// POST route(s) for 'thoughts'
-    // CREATE thoughts
 
-// PUT/UPDATE route(s) for 'thoughts'
-    // UPDATE thoughts
+//All routes being handles via /thoughtId
+//api/thoughts/:thoughtId
+router.route('/:thoughtId').get(singleThought).put(updateThoughts).delete(deleteThoughts)
 
-// DELETE route(s) for 'thoughts'
-    // DELETE thoughts
-
+module.exports = router;

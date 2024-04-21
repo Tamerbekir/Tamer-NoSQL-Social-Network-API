@@ -1,73 +1,8 @@
-// // Thought
-// // Tie Thought to user
-// // Create Thought
-// // Delete Thought
-
-
-// // Bring in User, their reactions and thoughts
-// const { ObjectId } = require('mongoose').Types;
-// const { User, Thoughts, Reactions } = require('../models')
-
-// // Get all thoughts
-// const thoughtCount = async () =>
-// Thoughts.aggregate()
-//     .count('thoughtCount')
-//     .then((numberOfThoughts) => numberOfThoughts)
-
-
-// module.exports = {
-
-//     getThoughts(req, res) {
-//         Thoughts.find()
-//         .then(async (users) => {
-//             const userObj = {
-//                 users
-//             }
-//             return res.json(userObj)
-//         })
-//     },
-
-
-//     // Ability to add thought by the user
-//     addThought(req, res) {
-//         User.findOneAndUpdate(
-//             // Finding the user by their id and then adding/updating the thought in the json which is then added to the users data
-//             { _id: req.params.userId },
-//             { $addToSet: { thought: req.body } },
-//             { runValidators: true, new: true }
-//         )
-//         .then((user) =>
-//             ! user ? res.status(404).json({ message: 'No user with this id!' })
-//             : res.json(user)
-//         )
-//     },
-
-//     // Ability to delete a user.
-//     // One user is found nd then they are removed.
-//     // The user is found by their id
-//     deleteThought(req, res) {
-//         User.findOneAndRemove(
-//             { _id: req.params.userId },
-//             {
-//                 // Pulling the users reaction and thought data from the user.
-//                 $pull: {
-//                     thought: { thoughtId: req.params.thoughtId }
-//                 }
-//             }
-//         )
-//         .then((user) =>
-//             !user
-//             ? res.status(404).json({ message: 'No user with that ID' })
-//             : res.json(user)
-//         )
-//         .catch((err) => res.status(500).son(err));
-//     }
-// }
-
 const Thoughts = require('../models/Thoughts')
 
-model.export = {
+module.exports = {
 
+    // Grabbing all thoughts
     allThoughts: async (req, res) => {
         try  {
             const thoughts = await Thoughts.find();
@@ -77,6 +12,17 @@ model.export = {
         }
     },
 
+    // Get a single thought by ID
+    singleThought: async (req, res) => {
+        try {
+            const thought = await Thoughts.findById(req.params.thoughtId);
+            res.json(thought);
+        } catch (err) {
+            res.status(500).json({ message: 'There was an error finding the thought.' });
+        }
+    },
+
+    // Creating a thought by placing a thought in the body of the json and saving it.
     createThoughts: async (req, res) => {
         try {
             const newThought = new Thoughts(req.body);
@@ -87,6 +33,7 @@ model.export = {
         }
     },
 
+    // Updating a thought by grabbing a single thought by its ID by the parameter and then setting ($set) it to whatever we want within the json body
     updateThoughts: async (req, res) => {
         try {
             const updateThoughts = await Thoughts.findOneAndUpdate(
@@ -100,6 +47,7 @@ model.export = {
         }
     },
 
+    // Deleting a thought by grabbing a single thought by its ID by the parameter and then deleting it
     deleteThoughts: async (req, res) => {
         try {
             const deleteThoughts = await Thoughts.findOneAndDelete(
