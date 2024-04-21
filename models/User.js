@@ -13,12 +13,10 @@ const userSchema = new Schema(
         maxlength: 50
     },
     // User has a relationship with friends, thoughts and reactions. The User can have multiple friends, thoughts and reactions. Thoughts and reactions are referencing their own models, and the friends is referencing the User.
-    friends: [
-        {
+    friends: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
-        }
-    ],
+    }],
     thought: [ thoughtSchema ],
     reaction: [ reactionSchema ],
     }, 
