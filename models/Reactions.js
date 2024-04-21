@@ -1,6 +1,4 @@
-//Bringing in the thought schema
-const thoughtSchema = require('./Thoughts');
-
+//Bringing in the reaction schema
 const { Schema, model } = require('mongoose');
 
 
