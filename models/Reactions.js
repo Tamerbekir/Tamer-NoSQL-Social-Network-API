@@ -1,31 +1,35 @@
-const { Schema, model } = require('mongoose');
+//Bringing in the thought schema
 const thoughtSchema = require('./Thoughts');
-const userSchema = require('./User');
 
+const { Schema, model } = require('mongoose');
+
+
+//Reaction Schema
 const reactionSchema = new Schema(
     {
-        emoji: {
-            type: String,
-            required: true,
-        },
-        user: {
-            type: Schema.Types.ObjectId,
-            ref: 'User',
-            required: true,
-        },
-        thought: {
-            type: thoughtSchema,
-            ref: 'Thoughts',
-            require: true
-        }
+    emoji: {
+        type: String,
+        required: true,
     },
-    {
-        toJSON: {
-            getters: true,
-        },
-    }
+        // Reaction has a relationship with user and thoughts. User and thoughts are referencing their own models.
+    user: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    }],
+    thought: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Thoughts',
+        require: true
+    }],
+},
+{
+    toJSON: {
+        getters: true,
+    },
+}
 );
 
-const Reactions = model('reactions', reactionSchema)
+const Reaction = model('reactions', reactionSchema)
 
-module.exports = Reactions;
+module.exports = Reaction;
