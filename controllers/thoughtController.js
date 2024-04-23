@@ -5,7 +5,7 @@ module.exports = {
     // Grabbing all thoughts
     allThoughts: async (req, res) => {
         try  {
-            const thoughts = await Thoughts.find();
+            const thoughts = await Thoughts.find().populate('reactions')
             res.json(thoughts);
         } catch (err) {
             res.status(500).json({ message: 'There was an error getting all thoughts' });
@@ -52,9 +52,26 @@ module.exports = {
         try {
             const deleteThoughts = await Thoughts.findOneAndDelete(
                 { _id: req.params.thoughtId });
-            res.json(deleteThoughts);
+            res.status(200).json({ message: "Deleted Thought!" });
         } catch (err) {
             res.status(500).json({ message: 'There was an error deleting a thought' });
         }
+    },
+
+    addReaction: async (req, res) => {
+        try {
+            const { reactionBody, userId } = req.body;
+            const thoughtId = req.params.thoughtId;
+
+            const updatedThought = await Thoughts.findOneAndUpdate(
+                { _id: thoughtId },
+                { $push: { reactions: { reactionBody, userId } } },
+                { new: true }
+            );
+
+            res.json(updatedThought);
+        } catch (err) {
+            res.status(500).json({ message: 'There was an error adding a reaction to the thought.' });
+        }
     }
-}
+};

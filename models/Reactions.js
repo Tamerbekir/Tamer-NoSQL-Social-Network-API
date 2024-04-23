@@ -1,21 +1,19 @@
-//Bringing in the reaction schema
+// Reactions model
 const { Schema, model } = require('mongoose');
 
+
 const reactionSchema = new Schema({
-    //thoughtId that will reference the Thoughts model that will be associated with the reaction
     thoughtId: {
         type: Schema.Types.ObjectId,
         ref: 'Thoughts',
         required: true
     },
-    //userId that is referencing the User model that is associated with the reaction
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    // Making reaction an emoji
-    reactionEmoji: {
+    reactionText: {
         type: String,
         required: true
     },
@@ -23,8 +21,13 @@ const reactionSchema = new Schema({
         type: Date,
         default: Date.now
     }
-});
+},
+    {
+        toJSON: {
+            virtuals: true
+        }
+    });
 
-const Reaction = model('reactions', reactionSchema);
+const Reaction = model('Reaction', reactionSchema);
 
 module.exports = Reaction;
