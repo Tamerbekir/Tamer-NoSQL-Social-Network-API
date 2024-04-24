@@ -118,20 +118,20 @@ module.exports = {
     },
 
     //Finding a single user by their ID
-    getSingleUser: async (req, res) => {
+    singleUser: async (req, res) => {
         try {
-            const getSingleUser = await
-                //finding the user by their ID in the parameter
-                User.findOne({ _id: req.params.userId })
-                .select('-_v')
+            const singleUser = await User.findOne(
+                { _id: req.params.userId })
+                .select('-__v')
                 //Populate method to display their thoughts and friends
                 .populate('thoughts')
-                .populate('friends')
-                res.status(200).json(getSingleUser)
+                .populate('friends');
+            res.status(200).json(singleUser);
         } catch (err) {
-            res.status(500).json({ 'Unable to get user.' })
+            res.status(500).json({ message: 'Unable to get user.' });
         }
     },
+    
 
     // Creating a new user
     createUser: async (req, res) => {
