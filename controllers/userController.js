@@ -1,9 +1,9 @@
 //Bringing in the User and Thought Model from directory
-const  User = require('../models/User')
+const User = require('../models/User')
 
 
 module.exports = {
-    
+
     //Finding all users
     //excluding the version key
     //display all users as object 
@@ -17,7 +17,7 @@ module.exports = {
             res.status(500).json({ message: 'Unable to get all users.' })
         }
     },
-    
+
     // Getting a single user by their ID
     //Finding a single user by their ID
     //Populate method to display their thoughts and friends
@@ -33,7 +33,7 @@ module.exports = {
             res.status(500).json({ message: 'Unable to get user.' });
         }
     },
-    
+
 
     // Creating a new user
     createUser: async (req, res) => {
@@ -41,9 +41,9 @@ module.exports = {
             const createUser = await
                 //Creating a new user by using json body
                 User.create(req.body)
-                .then((createUser) => {
-                res.status(200).json(createUser)
-            })
+                    .then((createUser) => {
+                        res.status(200).json(createUser)
+                    })
         } catch (err) {
             res.status(500).json({ message: 'Unable to create user.' })
         }
@@ -57,14 +57,14 @@ module.exports = {
     //json results
     updateUser: async (req, res) => {
         try {
-            const updateUser = await 
+            const updateUser = await
                 User.findOneAndUpdate(
                     { _id: req.params.userId },
                     { $set: req.body },
-                    { runValidators: true, new: true } )
-                .then((updateUser) => {
-                    res.status(200).json(updateUser)
-                })
+                    { runValidators: true, new: true })
+                    .then((updateUser) => {
+                        res.status(200).json(updateUser)
+                    })
         } catch (err) {
             res.status(500).json({ message: 'There was a problem creating a new user' })
         }
@@ -73,13 +73,13 @@ module.exports = {
     // find a single user and delete it
     // getting the users name from the parameter and then deleting it
     deleteUser: async (req, res) => {
-        try{
-            const deleteUser = await 
+        try {
+            const deleteUser = await
                 User.findOneAndDelete(
-                    { _id: req.params.userId } )
-                .then((deleteUser) => {
-                    res.status(200).json(deleteUser)
-                })
+                    { _id: req.params.userId })
+                    .then((deleteUser) => {
+                        res.status(200).json(deleteUser)
+                    })
         } catch (err) {
             res.status(500).json({ message: 'There was a problem deleting user.' })
         }
@@ -91,18 +91,18 @@ module.exports = {
         try {
             const userId = req.params.userId;
             const friendId = req.params.friendId;
-    
+
             const user = await User.findByIdAndUpdate(
                 userId,
                 { $addToSet: { friends: friendId } },
                 { new: true }
             );
-    
+
             res.status(200).json(user);
         } catch (err) {
             console.error(err);
             res.status(500).json({ message: 'There was a problem adding a friend.' });
-        }    
+        }
     },
 
     // removing a friend from a single user
@@ -114,7 +114,7 @@ module.exports = {
                 { $pull: { friends: req.params.friendId } },
                 { new: true }
             );
-    
+
             res.status(200).json(removeFriend);
         } catch (err) {
             console.error(err);
@@ -122,4 +122,3 @@ module.exports = {
         }
     }
 }
-    
