@@ -1,41 +1,5 @@
-// // Thoughts model
-// const { Schema, model } = require('mongoose');
-
-// const thoughtSchema = new Schema({
-//     thoughtText: {
-//         type: String,
-//         required: true,
-//         maxlength: 280
-//     },
-//     userId: {
-//         type: Schema.Types.ObjectId,
-//         ref: 'User',
-//         required: true
-//     },
-//     createdAt: {
-//         type: Date,
-//         default: Date.now
-//     },
-//     reactions: [{
-//         type: Schema.Types.ObjectId,
-//         ref: 'Reactions'
-//     }],
-//     }, 
-//      {
-//         toJSON: {
-//             virtuals: true
-//         }
-//     });
-
-// const Thoughts = model('Thoughts', thoughtSchema);
-
-// module.exports = Thoughts;
-
-//! Refactor
-
 // Thoughts model
 const { Schema, model } = require('mongoose');
-const reactionSchema = require('./Reactions');
 
 const thoughtSchema = new Schema({
     thoughtText: {
@@ -53,7 +17,10 @@ const thoughtSchema = new Schema({
         default: Date.now
     },
     //Brought in reactions schema 
-    reactions: [reactionSchema],
+    reactions: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Reaction'
+    }],
 },
     {
         toJSON: {

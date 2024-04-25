@@ -1,41 +1,6 @@
-// // Reactions model
-// const { Schema, model } = require('mongoose');
-
-
-// const reactionSchema = new Schema({
-//     thoughtId: {
-//         type: Schema.Types.ObjectId,
-//         ref: 'Thoughts',
-//         required: true
-//     },
-//     userId: {
-//         type: Schema.Types.ObjectId,
-//         ref: 'User',
-//         required: true
-//     },
-//     reactionText: {
-//         type: String,
-//         required: true
-//     },
-//     createdAt: {
-//         type: Date,
-//         default: Date.now
-//     }
-// },
-//     {
-//         toJSON: {
-//             virtuals: true
-//         }
-//     });
-
-// const Reaction = model('Reaction', reactionSchema);
-
-// module.exports = Reaction;
-
-//! Refactor
-
-// Reactions type
-const { Schema, Types } = require('mongoose');
+// Reactions model
+const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 
 const reactionSchema = new Schema({
@@ -43,12 +8,11 @@ const reactionSchema = new Schema({
     reactionId: {
         type: Schema.Types.ObjectId,
         //added default 
-        default: () => new Types.ObjectId(),
+        default: () => new mongoose.Types.ObjectId(),
     },
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+    username: {
+        type: String,
+        required: true,
     },
     reactionText: {
         type: String,
