@@ -1,10 +1,7 @@
 # NoSQL-Social-Network-API
-
-# ORM - E-Commerce-Back-End
-
 ## Description 
 
-This application is the back end of an social networking API. A user is able to create user accounts, add friends, and post thoughts. The user is also able to add reactions to thoughts and add friends to other users. A user is also able to delete their friends, their thoughts as well as their account if they wish. Users are also able to create reactions on other thoughts. Lastly, a user can update their thoughts as well as their username if they wish. 
+This application is the back end of a social networking API. A user is able to create user accounts, add friends, and post thoughts. The user is also able to add reactions to thoughts and add friends to other users. A user is also able to delete their friends, their thoughts as well as their account if they wish. Users are also able to create reactions on other thoughts. Lastly, a user can update their thoughts as well as their username if they wish. 
 
 This is all done on the backend API endpoint routes:
 
