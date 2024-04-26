@@ -56,7 +56,7 @@ If you have nodemon installed, run:
 If you wish to use Nodemon (optional), follow the instructions <a href="https://www.npmjs.com/package/nodemon">here</a>.
 
 ## Video-Demo
-<a href="https://drive.google.com/file/d/1Ot3b1R9aBFOtxPNv86Hf8ehcIGCvOvAP/view?usp=sharing"> Video Demo /a>
+<a href="https://drive.google.com/file/d/1Ot3b1R9aBFOtxPNv86Hf8ehcIGCvOvAP/view?usp=sharing"> Video Demo </a>
 
 
 ## Features
